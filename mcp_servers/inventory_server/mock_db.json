@@ -1,0 +1,17 @@
+{
+  "SKU001": {
+    "name": "Blue Denim Jacket",
+    "quantity": 2,
+    "sizes": ["M", "L"]
+  },
+  "SKU002": {
+    "name": "Black Sneakers",
+    "quantity": 0,
+    "sizes": ["8", "9", "10"]
+  },
+  "SKU003": {
+    "name": "White T-Shirt",
+    "quantity": 15,
+    "sizes": ["S", "M", "L", "XL"]
+  }
+}
