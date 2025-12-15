@@ -80,7 +80,16 @@ class ProfileClient:
     def __init__(self, base_url: str):
         self.base_url = base_url
 
-
 class SupportClient:
     def __init__(self, base_url: str):
         self.base_url = base_url
+
+    def track_shipment(self, order_id: str):
+        response = requests.post(
+            f"{self.base_url}/trackShipment",
+            json={"order_id": order_id},
+            timeout=5
+        )
+        response.raise_for_status()
+        return response.json()
+

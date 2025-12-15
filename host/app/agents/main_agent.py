@@ -2,6 +2,7 @@ from host.app.agents.inventory_agent import inventory_agent
 from host.app.agents.store_agent import store_agent
 from host.app.agents.payment_agent import payment_agent
 from host.app.agents.loyalty_agent import loyalty_agent
+from host.app.agents.postpurchase_agent import postpurchase_agent
 
 
 
@@ -32,6 +33,12 @@ def main_agent(state: dict, tools: dict) -> dict:
     # Loyalty / offers
     if "offer" in last_message or "coupon" in last_message or "discount" in last_message:
         return loyalty_agent(state, tools["loyalty"])
+    
+
+    # Post-purchase support
+    if "track" in last_message or "order" in last_message or "delivery" in last_message:
+        return postpurchase_agent(state, tools["support"])
+
 
 
     # Default fallback

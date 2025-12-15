@@ -1,0 +1,12 @@
+{
+  "ORD-1234": {
+    "status": "Out for delivery",
+    "expected_date": "18 Dec 2025",
+    "courier": "BlueDart"
+  },
+  "ORD-5678": {
+    "status": "Delivered",
+    "expected_date": "14 Dec 2025",
+    "courier": "Delhivery"
+  }
+}
