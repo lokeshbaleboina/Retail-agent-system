@@ -23,10 +23,34 @@ class StoreClient:
     def __init__(self, base_url: str):
         self.base_url = base_url
 
+    def get_nearest_stores(self, user_location: str, product_ids: list):
+        response = requests.post(
+            f"{self.base_url}/getNearestStores",
+            json={
+                "user_location": user_location,
+                "product_ids": product_ids
+            },
+            timeout=5
+        )
+        response.raise_for_status()
+        return response.json()
+
 
 class PaymentClient:
     def __init__(self, base_url: str):
         self.base_url = base_url
+
+    def create_payment_link(self, user_id: str, amount: float):
+        response = requests.post(
+            f"{self.base_url}/createPaymentLink",
+            json={
+                "user_id": user_id,
+                "amount": amount
+            },
+            timeout=5
+        )
+        response.raise_for_status()
+        return response.json()
 
 
 class RecommendationClient:

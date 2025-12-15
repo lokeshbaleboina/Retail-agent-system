@@ -1,5 +1,7 @@
 from host.app.agents.inventory_agent import inventory_agent
 from host.app.agents.store_agent import store_agent
+from host.app.agents.payment_agent import payment_agent
+
 
 
 def main_agent(state: dict, tools: dict) -> dict:
@@ -19,6 +21,11 @@ def main_agent(state: dict, tools: dict) -> dict:
     # Store flow (offline / omnichannel)
     if "store" in last_message or "offline" in last_message or "near me" in last_message:
         return store_agent(state, tools["store"])
+    
+    # Payment flow
+    if "buy" in last_message or "checkout" in last_message or "pay" in last_message:
+        return payment_agent(state, tools["payment"])
+
 
     # Default fallback
     state["messages"].append(
