@@ -1,6 +1,8 @@
 from host.app.agents.inventory_agent import inventory_agent
 from host.app.agents.store_agent import store_agent
 from host.app.agents.payment_agent import payment_agent
+from host.app.agents.loyalty_agent import loyalty_agent
+
 
 
 
@@ -25,6 +27,11 @@ def main_agent(state: dict, tools: dict) -> dict:
     # Payment flow
     if "buy" in last_message or "checkout" in last_message or "pay" in last_message:
         return payment_agent(state, tools["payment"])
+    
+
+    # Loyalty / offers
+    if "offer" in last_message or "coupon" in last_message or "discount" in last_message:
+        return loyalty_agent(state, tools["loyalty"])
 
 
     # Default fallback

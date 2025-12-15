@@ -1,0 +1,14 @@
+{
+  "GOLD": {
+    "discount_percent": 20,
+    "max_discount": 1000
+  },
+  "SILVER": {
+    "discount_percent": 10,
+    "max_discount": 500
+  },
+  "BRONZE": {
+    "discount_percent": 5,
+    "max_discount": 200
+  }
+}
