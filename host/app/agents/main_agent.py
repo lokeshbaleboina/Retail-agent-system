@@ -1,33 +1,22 @@
+from host.app.agents.inventory_agent import inventory_agent
+
+
 def main_agent(state: dict, tools: dict) -> dict:
-    """
-    Main Sales Agent (LLM Orchestrator).
-
-    For now:
-    - Acts as a simple controller
-    - Later this will call an LLM to decide routing
-    """
-
-    # If no messages yet, greet the user
+    # First interaction
     if not state.get("messages"):
         state["messages"].append(
-            "Hi! I’m your personal shopping assistant 😊 How can I help you today?"
+            "Hi! I’m your AI shopping assistant 😊 How can I help you?"
         )
         return state
 
     last_message = state["messages"][-1].lower()
 
-    # Simple rule-based routing (temporary)
-    if "buy" in last_message:
-        state["messages"].append(
-            "Great choice! Let me help you with the purchase."
-        )
-    elif "recommend" in last_message:
-        state["messages"].append(
-            "Sure! Let me find some recommendations for you."
-        )
-    else:
-        state["messages"].append(
-            "I can help you with recommendations, availability, or checkout."
-        )
+    # Inventory flow
+    if "availability" in last_message or "stock" in last_message:
+        return inventory_agent(state, tools["inventory"])
 
+    # Default fallback
+    state["messages"].append(
+        "I can help with recommendations, availability, or checkout."
+    )
     return state
