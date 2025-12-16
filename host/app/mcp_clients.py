@@ -57,6 +57,16 @@ class RecommendationClient:
     def __init__(self, base_url: str):
         self.base_url = base_url
 
+    def get_recommendations(self, occasion: str):
+        response = requests.post(
+            f"{self.base_url}/getRecommendations",
+            json={"occasion": occasion},
+            timeout=5
+        )
+        response.raise_for_status()
+        return response.json()
+
+
 
 class LoyaltyClient:
     def __init__(self, base_url: str):

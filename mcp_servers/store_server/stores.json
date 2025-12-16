@@ -1,0 +1,22 @@
+[
+  {
+    "store_id": "S001",
+    "name": "AB Retail – Banjara Hills",
+    "address": "Road No. 12, Banjara Hills, Hyderabad",
+    "lat": 17.412,
+    "lng": 78.434,
+    "manager": "Ramesh Kumar",
+    "phone": "+91 9876543210",
+    "inventory": ["SKU001", "SKU003"]
+  },
+  {
+    "store_id": "S002",
+    "name": "AB Retail – Gachibowli",
+    "address": "Gachibowli Main Road, Hyderabad",
+    "lat": 17.441,
+    "lng": 78.348,
+    "manager": "Anita Sharma",
+    "phone": "+91 9123456780",
+    "inventory": ["SKU002", "SKU003"]
+  }
+]

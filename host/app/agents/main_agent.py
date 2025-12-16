@@ -3,6 +3,8 @@ from host.app.agents.store_agent import store_agent
 from host.app.agents.payment_agent import payment_agent
 from host.app.agents.loyalty_agent import loyalty_agent
 from host.app.agents.postpurchase_agent import postpurchase_agent
+from host.app.agents.recommendation_agent import recommendation_agent
+
 
 
 
@@ -38,6 +40,11 @@ def main_agent(state: dict, tools: dict) -> dict:
     # Post-purchase support
     if "track" in last_message or "order" in last_message or "delivery" in last_message:
         return postpurchase_agent(state, tools["support"])
+  
+    #Recommendation 
+    if "recommend" in last_message or "suggest" in last_message:
+        return recommendation_agent(state, tools["recommendation"])
+
 
 
 
