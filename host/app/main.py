@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Request
 from host.app.graph import run_graph
 
-
 app = FastAPI()
 
 
@@ -12,14 +11,6 @@ def health_check():
 
 @app.post("/webhook")
 async def webhook(request: Request):
-    """
-    Entry point for all channels:
-    - Web
-    - Mobile App
-    - WhatsApp
-    - In-store Kiosk
-    """
-
     payload = await request.json()
 
     # -------------------------------
@@ -33,7 +24,11 @@ async def webhook(request: Request):
         "messages": []
     }
 
-    # Optional: user message (chat-based flow)
+    # ✅ MERGE OPTIONAL CONTEXT
+    if "recommended_products" in payload:
+        state["recommended_products"] = payload["recommended_products"]
+
+    # Optional: user message
     if "message" in payload:
         state["messages"].append(payload["message"])
 

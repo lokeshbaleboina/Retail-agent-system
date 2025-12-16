@@ -1,29 +1,26 @@
 def payment_agent(state: dict, payment_client) -> dict:
     user = state.get("user", {})
-    cart_items = state.get("cart", {}).get("items", [])
+    cart_items = state.get("recommended_products", [])
 
     if not cart_items:
         state["messages"].append(
-            "Your cart is empty. Add items before checkout."
+            "Your cart is empty. Please add items before checkout."
         )
         return state
 
-    # Simulated price calculation
-    amount = 0
-    for item in cart_items:
-        amount += item.get("price", 999)  # dummy price
+    total_amount = sum(item["price"] for item in cart_items)
 
-    payment = payment_client.create_payment_link(
-        user_id=user.get("id"),
-        amount=amount
+    payment = payment_client.create_payment(
+        user_id=user.get("id", "guest"),
+        amount=total_amount
     )
 
-    # WhatsApp-style CTA
+    # WhatsApp-style CTA message
     message = (
-        "🛍️ *Almost there!*\n\n"
-        f"💰 Amount: ₹{payment['amount']}\n\n"
-        f"👉 *Pay securely here:* {payment['payment_url']}\n\n"
-        "Once payment is done, reply *PAID* to confirm."
+        f"🛒 *Checkout Ready!*\n\n"
+        f"💰 Amount: ₹{total_amount}\n\n"
+        f"👉 *BUY NOW*: {payment['payment_url']}\n"
+        f"🏬 *CHECK OFFLINE STORES*: Reply `STORE`"
     )
 
     state["messages"].append(message)

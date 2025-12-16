@@ -40,17 +40,15 @@ class PaymentClient:
     def __init__(self, base_url: str):
         self.base_url = base_url
 
-    def create_payment_link(self, user_id: str, amount: float):
+    def create_payment(self, user_id: str, amount: float):
         response = requests.post(
             f"{self.base_url}/createPaymentLink",
-            json={
-                "user_id": user_id,
-                "amount": amount
-            },
+            json={"user_id": user_id, "amount": amount},
             timeout=5
         )
         response.raise_for_status()
         return response.json()
+
 
 
 class RecommendationClient:

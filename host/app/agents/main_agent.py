@@ -28,8 +28,9 @@ def main_agent(state: dict, tools: dict) -> dict:
         return store_agent(state, tools["store"])
     
     # Payment flow
-    if "buy" in last_message or "checkout" in last_message or "pay" in last_message:
+    if "buy" in last_message or "checkout" in last_message:
         return payment_agent(state, tools["payment"])
+
     
 
     # Loyalty / offers
