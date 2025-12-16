@@ -1,147 +1,175 @@
-🛍️ AI-Powered Omnichannel Retail Sales Agent
+# AI-Powered Omnichannel Retail Sales Agent  
+### EY Techathon 6.0 | Retail & Fashion Commerce
 
-EY Techathon 6.0 | Retail & Fashion Commerce
+---
 
-🚀 One-Line Value Proposition
+## 1. Executive Summary
+This project presents an **Agentic AI–powered Omnichannel Retail Sales Assistant** that delivers a continuous, context-aware shopping experience across web, WhatsApp, and physical retail touchpoints.
 
-A single AI Sales Agent that follows customers seamlessly across web, WhatsApp, and physical stores, orchestrating specialized agents to deliver personalized, conversion-driven retail experiences.
+A **central AI Sales Agent (LLM-based)** orchestrates multiple specialized Worker Agents to guide customers through discovery, availability checks, checkout, and post-purchase support—similar to a skilled in-store sales associate operating across channels.
 
-❓ Problem Statement
+---
 
-Modern retail journeys are fragmented across apps, websites, messaging platforms, and physical stores. Context is lost when customers switch channels, leading to cart abandonment, inconsistent assistance, and missed upsell opportunities—especially during online-to-offline transitions.
+## 2. Problem Statement
+Modern retail journeys are fragmented across websites, mobile apps, messaging platforms, and physical stores. When customers switch channels:
 
-💡 Solution Overview
+- Context is lost  
+- Assistance becomes inconsistent  
+- Cart abandonment increases  
+- Upsell and cross-sell opportunities are missed  
 
-This project implements an Agentic AI–powered Omnichannel Retail Sales Assistant.
-A Main LLM-based Sales Agent maintains session context and intelligently coordinates multiple Worker Agents to handle recommendations, inventory checks, store availability, payments, loyalty offers, and post-purchase support.
+Retailers lack a system that can **maintain session continuity and sales intent across channels**, especially during online-to-offline transitions.
 
-The system delivers a human-like, continuous sales journey—similar to a top sales associate assisting a customer across channels.
+---
 
-🧠 Why This Is Agentic AI (Not Just a Chatbot)
+## 3. Solution Overview
+The solution implements an **Agentic AI architecture** with a clear separation of responsibilities:
 
-Main Agent (LLM) reasons, understands intent, and decides next actions
+- A **Main Sales Agent (LLM)** that understands user intent, maintains session context, and decides next actions
+- Multiple **Worker Agents** that execute domain-specific tasks via tools
 
-Worker Agents perform specialized domain tasks
+This architecture enables a **human-like, uninterrupted sales journey**, regardless of how or where the customer interacts.
 
-LangGraph-style orchestration dynamically routes workflows
+---
 
-MCP architecture cleanly separates reasoning from tool execution
+## 4. Why This Is Agentic AI (Not a Chatbot)
+This system goes beyond scripted chatbots:
 
-Mental model: A Sales Manager (LLM) delegating tasks to specialist staff (agents).
+- The **Main Agent reasons** over conversation history and user intent
+- **Worker Agents act autonomously** on specific tasks (inventory, payment, loyalty, etc.)
+- **Dynamic orchestration** routes requests at runtime
+- Supports **multi-step workflows**, not single-turn responses
 
-🔑 Key Capabilities
+The result is goal-oriented, adaptive behavior rather than predefined flows.
 
-Personalized product recommendations (LLM-powered)
+---
 
-Real-time inventory and store availability
+## 5. Target Users
+- **Industry:** Retail & Fashion Commerce  
+- **Business Model:** B2C  
+- **End Users:** Shoppers using web, mobile apps, WhatsApp, and in-store kiosks  
+- **Internal Stakeholders:** Customer Experience, Retail Sales, Store Operations  
 
-WhatsApp-style CTAs: BUY NOW, CHECK OFFLINE STORES
+---
 
-Payment link generation
+## 6. Omnichannel User Journey (Scenario)
+1. Customer browses products on web or mobile app
+2. AI Sales Agent provides personalized recommendations
+3. Conversation continues on WhatsApp for reminders or follow-ups
+4. Customer visits a physical store; session is restored at a kiosk
+5. Agent checks store inventory and suggests bundles
+6. Payment link is generated or items are reserved for in-store trial
+7. Post-purchase tracking and support continue on the preferred channel
 
-Seamless online → offline handoff
+---
 
-Modular, extensible agent architecture
+## 7. System Architecture (Conceptual)
+- **MCP Host:**  
+  - Main Sales Agent (LLM)  
+  - Orchestration / routing logic  
 
-🧩 System Architecture (High Level)
+- **Worker Agents:**  
+  - Recommendation  
+  - Inventory  
+  - Store Availability  
+  - Payment  
+  - Loyalty & Offers  
+  - Fulfillment  
+  - Post-Purchase Support  
 
-Flow:
+- **MCP Servers:**  
+  Backend microservices exposing tools for each domain
 
-User (Web / WhatsApp / Kiosk)
-→ MCP Host (Main Sales Agent)
-→ LangGraph Orchestrator
-→ Worker Agents
-→ MCP Servers & Tools
-→ Response to active channel
+---
 
-🤖 Agents Implemented
+## 8. Data & Control Flow
+User Request
+→ API Gateway
+→ Main Sales Agent (Orchestrator)
+→ Worker Agent
+→ MCP Client
+→ MCP Server (Tool Execution)
+→ Structured Response
+→ User-facing Channel
 
-Main Sales Agent (LLM)
+Session state, cart data, and preferences are preserved and reused across channels.
 
-Recommendation Agent (LLM-powered)
+---
 
-Inventory Agent
+## 9. Impact Metrics
+- Cart abandonment reduction  
+- Conversion rate improvement  
+- Average Order Value (AOV) increase  
+- Cross-channel completion rate  
+- Engagement rate  
+- Reduced time-to-purchase  
 
-Store Agent
+---
 
-Payment Agent
+## 10. Technology Stack
+- **Backend:** Python, FastAPI  
+- **AI / Orchestration:** LLM-based Main Agent, LangGraph-style routing  
+- **Architecture:** Microservices, MCP (Model Context Protocol)  
+- **APIs:** REST APIs, WhatsApp Cloud API (simulated)  
+- **Data:** Synthetic users, mock catalog, inventory, payment stubs  
 
-Loyalty Agent
+---
 
-Post-Purchase Support Agent
+## 11. Assumptions & Design Decisions
+- Customer, inventory, loyalty, and payment systems are simulated
+- Architecture is **modular and loosely coupled**
+- Worker Agents can be added or replaced without impacting the Main Agent
+- WhatsApp chosen due to high conversational engagement and adoption
 
-Each Worker Agent communicates with its own MCP Server, enabling independent scaling and fault isolation.
+---
 
-📊 Business Impact Metrics
+## 12. Scalability & Extensibility
+- Independent scaling of Worker Agents
+- Fault isolation between services
+- Secure API-based communication
+- Easy extension for new agents (returns, gift wrap, voice assistant)
 
-Cart abandonment ↓
+---
 
-Conversion rate ↑
+## 13. Running the Project Locally
 
-Average Order Value (AOV) ↑
-
-Cross-channel completion %
-
-Time-to-purchase ↓
-
-🛠️ Technology Stack (Quick View)
-
-Language: Python
-
-Frameworks: FastAPI, LangGraph
-
-LLMs: OpenRouter (OpenAI OSS models)
-
-Architecture: MCP-based microservices
-
-APIs: REST
-
-Data: Synthetic catalog, inventory, customer profiles
-
-⚙️ Run Locally (Quick Start)
+### Setup
+```bash
 git clone https://github.com/lokeshbaleboina/Retail-agent-system.git
 cd Retail-agent-system
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
 
-
-Create .env:
-
-OPENROUTER_API_KEY=your_openrouter_api_key
-OPENROUTER_MODEL=openai/gpt-oss-120b:free
-
-
-Start services:
-
+### Run MCP Host
+```bash
 uvicorn host.app.main:app --reload --port 8000
+```
 
-🧪 Sample Test
-curl -X POST http://localhost:8000/webhook \
--H "Content-Type: application/json" \
--d '{
-  "user": {"id":"u1","name":"Lokesh","preferences":["ethnic","formal"]},
-  "message":"Suggest something for a wedding"
-}'
+### Run MCP Servers (Example)
+```bash
+uvicorn mcp_servers.inventory_server.main:app --port 9001
+```
 
-🔒 Assumptions & Constraints
+---
 
-Inventory, payment, and loyalty systems are mocked for demo purposes
+## 14. Planned Enhancements (Next Round)
 
-Architecture is production-ready and easily pluggable with real systems
+- Richer LLM-driven recommendations  
+- Store proximity intelligence  
+- WhatsApp payment confirmations  
+- Returns and exchange workflows  
+- Polished end-to-end demo walkthrough  
 
-Focus is on agent orchestration and omnichannel continuity
+---
 
-🔮 Future Enhancements
+## Conclusion
 
-Real WhatsApp Cloud API integration
+This solution demonstrates how **Agentic AI** can unify fragmented retail journeys into a single, intelligent omnichannel sales experience—improving customer satisfaction while driving measurable business outcomes.
 
-Voice Assistant Agent
+---
 
-Styling / Gift-Wrapping Agent
+**Author:** Lokesh Baleboina  
+**EY Techathon 6.0 – Retail & Fashion Commerce**
 
-Analytics & long-term memory
-
-🏁 Final Note
-
-This project demonstrates how Agentic AI + LLMs + MCP-based microservices can transform fragmented retail touchpoints into a seamless, personalized, revenue-driven omnichannel experience.
