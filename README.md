@@ -154,7 +154,78 @@ uvicorn mcp_servers.inventory_server.main:app --port 9001
 
 ---
 
-## 14. Planned Enhancements (Next Round)
+## 14. Sample Test Scenarios
+
+### Base Endpoint
+```bash 
+http://localhost:8000/webhook
+```
+
+### Scenario 1: Product Recommendation
+```bash 
+curl -X POST http://localhost:8000/webhook \
+-H "Content-Type: application/json" \
+-d '{
+  "user": {
+    "id": "u1",
+    "name": "Lokesh",
+    "preferences": ["ethnic", "formal"]
+  },
+  "message": "Suggest something for a wedding"
+}'
+```
+### Expected Response:
+```bash 
+{
+  "reply": "Here are some great options for a wedding...",
+  "recommended_products": [
+    {
+      "sku": "SKU101",
+      "name": "Embroidered Kurta",
+      "price": 2999
+    }
+  ]
+}
+```
+
+### Scenario 2: Inventory Check
+```bash 
+url -X POST http://localhost:8000/webhook \
+-H "Content-Type: application/json" \
+-d '{
+  "message": "Check stock availability",
+  "cart": {
+    "items": [{ "sku": "SKU001" }]
+  }
+}'
+```
+### Expected Response
+```bash
+{
+  "reply": "Item is available (2 left)."
+}
+```
+
+### Scenario 3: Checkout Without Cart
+```bash
+curl -X POST http://localhost:8000/webhook \
+-H "Content-Type: application/json" \
+-d '{
+  "message": "BUY"
+}'
+```
+### Expected Response
+```bash
+{
+  "reply": "Your cart is empty. Please add items before checkout."
+}
+```
+
+
+---
+
+
+## 15. Planned Enhancements (Next Round)
 
 - Richer LLM-driven recommendations  
 - Store proximity intelligence  
